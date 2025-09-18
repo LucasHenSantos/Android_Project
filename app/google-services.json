@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1082069515330",
+    "project_id": "android-kothlin",
+    "storage_bucket": "android-kothlin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082069515330:android:c658fffd54e8622a6181db",
+        "android_client_info": {
+          "package_name": "com.example.imepac"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1zW_gu_K3RZA9159bLYSQUVbgie5dw-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

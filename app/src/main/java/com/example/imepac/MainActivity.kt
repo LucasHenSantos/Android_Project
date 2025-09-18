@@ -1,4 +1,6 @@
-package com.example.imepac
+
+
+    package com.example.imepac
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
