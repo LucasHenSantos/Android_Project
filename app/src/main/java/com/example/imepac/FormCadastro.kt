@@ -5,10 +5,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class FormCadastro : AppCompatActivity() {
 
@@ -45,25 +45,48 @@ class FormCadastro : AppCompatActivity() {
         }
     }
 
-            fun cadastrarUsuario(it: View){
+    fun cadastrarUsuario(it: View){
 
-                val email = edit_email.text.toString().trim()
-                val senha = edit_senha.text.toString().trim()
+        val email = edit_email.text.toString().trim()
+        val senha = edit_senha.text.toString().trim()
 
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
-                    .addOnCompleteListener{task -> //task é o objeto do resultado vindo o firebase
-                        if (task.isSuccessful){
-
-                            val mensagemOk = "Cadastro realizado com sucesso"
-                            val snackbar = Snackbar.make(it, mensagemOk, Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                        }else{
-
-                            val mensagemErro = "Erro ao cadastrar usuário"
-                            val snackbar = Snackbar.make(it, mensagemErro, Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                        }
-                    }
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
+            .addOnCompleteListener{task-> //task é o objeto do resultado vindo o firebase
+                if (task.isSuccessful){
+                    salvarDadosUsuario() //metodo para salvar o cadastro
+                    val mensagemOk = "Cadastro realizado com sucesso"
+                    val snackbar = Snackbar.make(it, mensagemOk, Snackbar.LENGTH_LONG)
+                    snackbar.show()
+                }else{
+                    val mensagemErro = "Erro ao cadastrar usuário"
+                    val snackbar = Snackbar.make(it, mensagemErro, Snackbar.LENGTH_LONG)
+                    snackbar.show()
+                }
             }
+    }
+    fun salvarDadosUsuario(){
+        val db = FirebaseFirestore.getInstance()
+        val nome = edit_nome.text.toString().trim()
+        val usuarioID = FirebaseAuth.getInstance().currentUser?.uid
+        val email = FirebaseAuth.getInstance().currentUser?.email
+        if (usuarioID != null && email != null) {
+            val usuarios = hashMapOf(
+                "nome" to nome,
+                "email" to email,
+                "uid" to usuarioID
+            )
+
+            db.collection("Usuarios")
+                .add(usuarios)
+                .addOnSuccessListener { documentReference -> // Add com sucesso
+                    println("Documento adicionado com ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e -> // Ocorreu um erro ao adicionar
+                    println("Erro ao adicionar documento: $e")
+                }
+        } else { // O usuário não está autenticado
+            println("Erro na autenticação")
+        }
+    }
 
     }
