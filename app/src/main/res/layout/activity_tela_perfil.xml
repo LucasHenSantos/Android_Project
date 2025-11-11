@@ -38,7 +38,7 @@
         android:id="@+id/textNomeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lucas Santos"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -60,7 +60,7 @@
         android:id="@+id/textEmailUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="meu e-mail"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -70,6 +70,7 @@
         app:layout_constraintStart_toEndOf="@+id/ic_email"
         />
     <Button
+        android:id="@+id/bt_sair"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sair"
